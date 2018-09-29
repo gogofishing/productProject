@@ -113,5 +113,21 @@ public class JdbcUtils {
 			}
 		}
 	}
+
+	public boolean updateByPreparedStatement(String sql, List<Object> params) throws SQLException {
+		// TODO Auto-generated method stub
+		boolean flag = false;
+		int result = -1;
+		int index = 1;
+		pstmt = connection.prepareStatement(sql);
+		if (params !=null && !params.isEmpty()) {
+			for (int i = 0; i < params.size(); i++) {
+				pstmt.setObject(index++, params.get(i));
+			}
+		}
+		result = pstmt.executeUpdate();
+		flag = result > 0? true : false;
+		return flag;
+	}
 	
 }

@@ -25,6 +25,9 @@ public class LoginDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		finally {
+			jdbcUtils.releaseConn();	//close connection
+		}
 		return flag;
 	}
 	

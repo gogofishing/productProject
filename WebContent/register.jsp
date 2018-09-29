@@ -78,7 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     function oncheck() {
         if (check_ok) {
-            th.action = "<%=path%>/servlet/RegisterAction";
+            th.action = "<%=path%>/RegisterAction";
             return true;
         }
         else {
