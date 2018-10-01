@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <script>
     function dosubmit() {
-        var th = document.form1;
+        var th = document.getElementById("form1");
         th.action = "<%=path%>/ProductAction?action_flag=add";
         th.submit();
     }

@@ -1,10 +1,7 @@
-package com.register;
+package com.logout;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,20 +9,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class RegisterAction
+ * Servlet implementation class LogoutAction
  */
-@WebServlet("/RegisterAction")
-public class RegisterAction extends HttpServlet {
+@WebServlet("/LogoutAction")
+public class LogoutAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private RegisterService service;   
-	private RegisterDao serv;
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegisterAction() {
+    public LogoutAction() {
         super();
         // TODO Auto-generated constructor stub
     }
+
+	/**
+	 * @see Servlet#init(ServletConfig)
+	 */
+	public void init(ServletConfig config) throws ServletException {
+		// TODO Auto-generated method stub
+	}
+
+	/**
+	 * @see Servlet#destroy()
+	 */
+	public void destroy() {
+		// TODO Auto-generated method stub
+		super.destroy();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -33,20 +44,16 @@ public class RegisterAction extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		PrintWriter out = response.getWriter();
+		
+		response.setContentType("text/html;charset=utf-8");
+		response.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("utf-8");
 		String path = request.getContextPath();
-		String username = request.getParameter("username");
-		String pswd = request.getParameter("pswd");
-		List<Object> params = new ArrayList<Object>();
-		params.add(username);
-		params.add(pswd);
-		RegisterDao rd = new RegisterDao();
-		boolean flag = rd.registerUser(params);
-		if (flag) {
+		String action_flag = request.getParameter("action_flag");
+		if (action_flag.equals("logout")) {
+			request.getSession().removeAttribute("username");
 			response.sendRedirect(path + "/index.jsp");
 		}
-		out.flush();
-		out.close();
 	}
 
 	/**
@@ -55,7 +62,6 @@ public class RegisterAction extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-	
 	}
 
 }

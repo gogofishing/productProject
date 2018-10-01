@@ -27,7 +27,7 @@ Map<String,Object> map = (Map<String,Object>) request.getAttribute("productMap")
                         <td width="20%">Product name</td>
                         <td width="30%"><%=map.get("proname")%></td>
                         <td width="20%">Product price</td>
-                        <td width="30%"><%=map.get("proprive")%></td>
+                        <td width="30%"><%=map.get("proprice")%></td>
                     </tr>
                     <tr align="center">
                         <td>Produce address</td>
@@ -35,7 +35,8 @@ Map<String,Object> map = (Map<String,Object>) request.getAttribute("productMap")
                     </tr>
                     <tr align="center">
                         <td>Product image</td>
-                        <td colspan="3"><img src="<%=path%>/upload/<%=map.get("proimage")%>"></td>
+     <%--                    <td colspan="3"><img src="<%=path%>/upload/<%=map.get("proimage")%>"></td> --%>
+                        <td colspan="3"><img src="E:/Java_workspace/productProject/WebContent/upload/<%=map.get("proimage")%>"></td>
                     </tr>
                 </table>
             </td>

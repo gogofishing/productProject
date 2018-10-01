@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" 
     pageEncoding="UTF-8"%>
 <%@ page import="com.util.*" %>
+
 <%@ page import="com.product.*" %>
 
 <%
@@ -10,11 +11,12 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 String username = (String)session.getAttribute("username");
 //get all parameters in servlet ProductionAction(ResultSet in query)
 List<Map<String,Object>> list = (List<Map<String,Object>>)request.getAttribute("listProduct");
-DividePage dividePage = (Dividepage)request.getAttribute("dividePage");
+DividePage dividePage = (DividePage)request.getAttribute("dividePage");
+
 String productName = (String)request.getAttribute("productName");
 if (list == null) {
 	ProductService service = new ProductDao();
-	int totalRecord = service.getItemCoun("");
+	int totalRecord = service.getItemCount("");
 	dividePage = new DividePage(5,totalRecord,1);
 	int start = dividePage.fromIndex();
 	int end = dividePage.toIndex();
@@ -31,7 +33,7 @@ if (list == null) {
 <div>
     <table width="60%" align="center">
         <tr>
-            <td align="left"><font size="2">Welcome, <%=username%><br /><a href="javacript:logout();">Log out</a> </font> </td>
+            <td align="left"><font size="2">Welcome, <%=username%><br /><a href="javascript:logout();">Log out</a> </font> </td>
         </tr>
         <tr>
             <td align="center">
@@ -47,7 +49,8 @@ if (list == null) {
                         <tr>
                             <td onclose="2" align="center">
                                 <button type="button" onclick="searchProduct();">Search</button>
-                                <button type="button" onclick="javasrcipt:location.href='<%=path%>'/addProduct.jsp">Add</button>
+                                <button type="button" onclick="javasrcipt:location.href='<%=path%>/addProduct.jsp'">Add</button>
+                               <%--  <button type="button" onclick="javascript:location.href='<%=path %>/addProduct.jsp'">添加</button> --%>
                             </td>
                         </tr>
                     </table>
@@ -71,7 +74,7 @@ if (list == null) {
                             <td width="30%">Product price</td>
                         </tr>
                         <%
-                            if (list != null && list.isEmpty()) {
+                            if (list != null && !list.isEmpty()) {
                                 for (Map<String, Object> map : list) {
                         %>
                         <tr align="center">
@@ -99,6 +102,7 @@ if (list == null) {
                 </form>
             </td>
         </tr>
+        
         <tr>
             <td>
                 <button type="button" onclick="del();">Delete</button>
@@ -163,7 +167,7 @@ if (list == null) {
     }
     
     function selectAll(flag) {
-        vat ids = document.getElementsByNames("ids");
+        var ids = document.getElementsByNames("ids");
         for (var i = 0; i < ids.length; i++) {
         	ids[i].checked = flag;
         }
@@ -191,7 +195,7 @@ if (list == null) {
 		}
 		
 		var th = document.form1;
-		th.action="<%=path%>/servlet/ProductAction?action_flag=del";
+		th.action="<%=path%>/ProductAction?action_flag=del";
 		th.submit(); 
     }
     
@@ -207,7 +211,7 @@ if (list == null) {
 		}
 		
 		var th = document.form1;
-		th.action="<%=path%>/servlet/ProductAction?action_flag=view&proid="+getSelectedValue();
+		th.action="<%=path%>/ProductAction?action_flag=view&proid="+getSelectedValue();
 		th.submit();		
     }
     
@@ -225,7 +229,7 @@ if (list == null) {
 	}
     
     function logout() {
-    	window.location.href="<%=path %>/servlet/LogoutAction?action_flag=logout";
+    	window.location.href="<%=path %>/LogoutAction?action_flag=logout";
     }
 
 </script>
